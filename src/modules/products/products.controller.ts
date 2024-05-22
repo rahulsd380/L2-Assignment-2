@@ -19,24 +19,35 @@ const createProducts = async(req : Request, res: Response) => {
 
 
 // Get all products
-const getAllMovies = async(req : Request, res: Response) => {
-    try{
+const getAllProducts = async (req: Request, res: Response) => {
+    try {
+        const searchTerm = req.query.searchTerm as string;
 
-        //Controller is calling the service function
-        const result = await productServices.getAllProducts()
-    
-        res.json({
-            success: true,
-            message: "Products fetched successfully!",
-            data: result,
-          });
-    }
-    catch(error){
+        if (searchTerm) {
+            // Controller is calling the service function to search products
+            const result = await productServices.searchProducts(searchTerm.toLowerCase());
+            res.json({
+                success: true,
+                message: "Products fetched successfully!",
+                data: result,
+            });
+        } else {
+            // Controller is calling the service function to get all products
+            const result = await productServices.getAllProducts();
+            res.json({
+                success: true,
+                message: "Products fetched successfully!",
+                data: result,
+            });
+        }
+    } catch (error) {
         console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
     }
-    
-
-}
+};
 
 
 // Get specific products by id
@@ -87,6 +98,7 @@ const updateSpecificProduct = async (req: Request, res: Response) => {
     }
 };
 
+// Delete specific products by id
 const deleteProduct = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
@@ -101,7 +113,7 @@ const deleteProduct = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: "Product deleted successfully!",
-            data: result,
+            data: null,
         });
     } catch (error) {
         console.log(error);
@@ -109,10 +121,31 @@ const deleteProduct = async (req: Request, res: Response) => {
 };
 
 
+// Search products
+// const searchProducts = async (req: Request, res: Response) => {
+//     try {
+//         const searchTerm = req.query.searchTerm as string;
+//         const result = await productServices.searchProducts(searchTerm);
+//         res.status(200).json({
+//             success: true,
+//             message: `Products fetched Products matching search term '${searchTerm}' fetched successfully!`,
+//             data: result,
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             success: false,
+//             message: "Internal Server Error",
+//         });
+//     }
+// };
+
+
 export const ProductsControllers = {
     createProducts,
-    getAllMovies,
+    getAllProducts,
     getSpecificProduct,
     updateSpecificProduct,
     deleteProduct,
+    // searchProducts,
 }
