@@ -26,8 +26,15 @@ const getSpecificProduct = async (id: string) => {
 
 // Update specific product by id
 const updateSpecificProduct = async (id: string, updatedData: TProducts) => {
-    // Find the product by productId and update its data
+    // Find the product by productId and update it's data
     const result = await Products.findOneAndUpdate({ _id: id }, updatedData, { new: true });
+    return result;
+};
+
+
+// Update specific product by id
+const deleteProduct = async (id: string) => {
+    const result = await Products.findByIdAndDelete(id);
     return result;
 };
 
@@ -36,4 +43,5 @@ export const productServices = {
     getAllProducts,
     getSpecificProduct,
     updateSpecificProduct,
+    deleteProduct
 }

@@ -87,10 +87,32 @@ const updateSpecificProduct = async (req: Request, res: Response) => {
     }
 };
 
+const deleteProduct = async (req: Request, res: Response) => {
+    try {
+        const productId = req.params.id;
+        const result = await productServices.deleteProduct(productId);
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully!",
+            data: result,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 export const ProductsControllers = {
     createProducts,
     getAllMovies,
     getSpecificProduct,
     updateSpecificProduct,
+    deleteProduct,
 }

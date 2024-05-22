@@ -10,5 +10,6 @@ router.post("/", ProductsControllers.createProducts);
 router.get("/", ProductsControllers.getAllMovies);
 router.get("/:id", ProductsControllers.getSpecificProduct);
 router.put("/:id", ProductsControllers.updateSpecificProduct);
+router.delete("/:id", ProductsControllers.deleteProduct);
 
 export const ProductsRoutes = router;
