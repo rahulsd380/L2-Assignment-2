@@ -121,6 +121,8 @@ const deleteProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.id;
     const result = await productServices.deleteProduct(productId);
+
+
     if (!result) {
       res.status(404).json({
         success: false,

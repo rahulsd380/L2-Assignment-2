@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { orderServices } from "./order.service";
-import { productServices } from "../products/products.service";
 import OrdersZodSchema from "./order.validation";
 
 // Create new order
 const createNewOrder = async (req: Request, res: Response) => {
   try {
+    
     const orderData = req.body;
     const zodValidatedData = OrdersZodSchema.parse(orderData);
 
