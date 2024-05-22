@@ -5,20 +5,29 @@ import ProductsZodSchema from "./products.validation";
 
 // Create produst
 const createProducts = async(req : Request, res: Response) => {
-    const productsData = req.body;
+    try{
+        const productsData = req.body;
 
-    const zodValidatedData = ProductsZodSchema.parse(productsData);
-
+        const zodValidatedData = ProductsZodSchema.parse(productsData);
     
-
-    //Controller is calling the service function
-    const result = await productServices.createProducts(zodValidatedData)
-
-    res.json({
-        success: true,
-        message: "Product created successfully!",
-        data: result,
-      });
+        
+    
+        //Controller is calling the service function
+        const result = await productServices.createProducts(zodValidatedData)
+    
+        res.json({
+            success: true,
+            message: "Product created successfully!",
+            data: result,
+          });
+    }
+    catch(error: any){
+        res.status(400).json({
+            success: false,
+            message: "Failed to create the product. Please check your inputs and try again.",
+        });
+    }
+    
 
 }
 
@@ -45,11 +54,10 @@ const getAllProducts = async (req: Request, res: Response) => {
                 data: result,
             });
         }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
+    } catch (error : any) {
+        res.status(400).json({
             success: false,
-            message: "Internal Server Error",
+            message: "Failed to retrieve the specific product. Please try again!",
         });
     }
 };
@@ -74,7 +82,10 @@ const getSpecificProduct = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Failed to retrieve the specific product. Please ensure your inputs are correct and try again.",
+        });
     }
 };
 
@@ -99,7 +110,10 @@ const updateSpecificProduct = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Failed to update the product. Please check your input and try again.",
+        });
     }
 };
 
@@ -121,7 +135,10 @@ const deleteProduct = async (req: Request, res: Response) => {
             data: null,
         });
     } catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Failed to delete the product.",
+        });
     }
 };
 

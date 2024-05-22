@@ -6,8 +6,7 @@ import OrdersZodSchema from "./order.validation";
 
 // Create new order
 const createNewOrder = async(req: Request, res:Response) => {
-
-    
+try{
     const orderData = req.body;
     const zodValidatedData = OrdersZodSchema.parse(orderData);
     
@@ -19,27 +18,44 @@ const createNewOrder = async(req: Request, res:Response) => {
         data: result,
       });
 }
+catch(error: any){
+    res.status(400).json({
+        success: false,
+        message: "Something went wrong. Please try again!",
+    });
+}
+}
 
 // Get all orders
 const getAllOrders = async(req: Request, res:Response) => {
-    const email = req.query.email as string;
-
-    if(email){
-        const result = await orderServices.searchOrder(email.toLowerCase());
-        res.json({
-            success: true,
-            message: "Orders fetched successfully for user email!",
-            data: result,
-        });
-    } else{
-        const orderData = req.body;
-        const result = await orderServices.createNewOrder(orderData);
     
-        res.json({
-            success: true,
-            message: "Order created successfully!",
-            data: result,
-          });
+
+    try{
+        const email = req.query.email as string;
+
+        if(email){
+            const result = await orderServices.searchOrder(email.toLowerCase());
+            res.json({
+                success: true,
+                message: "Orders fetched successfully for user email!",
+                data: result,
+            });
+        } else{
+            // const orderData = req.body;
+            const result = await orderServices.getAllOrders();
+        
+            res.json({
+                success: true,
+                message: "Orders fetched successfully!",
+                data: result,
+              });
+        }
+    }
+    catch(error:any){
+        res.status(400).json({
+            success: false,
+            message: "Something went wrong. Please try again!",
+        });
     }
 }
 
