@@ -2,8 +2,13 @@ import express, { Request, Response } from 'express';
 import { ProductsRoutes } from './modules/products/products.route';
 const app = express();
 
+// parsers
+app.use(express.json());
 
-app.use('/api/products', ProductsRoutes)
+app.use('/api/products', ProductsRoutes);
+
+
+
 
 app.get('/', (req : Request, res : Response) => {
   res.send('Hello World!')
