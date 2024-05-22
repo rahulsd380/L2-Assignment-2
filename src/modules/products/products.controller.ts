@@ -121,31 +121,10 @@ const deleteProduct = async (req: Request, res: Response) => {
 };
 
 
-// Search products
-// const searchProducts = async (req: Request, res: Response) => {
-//     try {
-//         const searchTerm = req.query.searchTerm as string;
-//         const result = await productServices.searchProducts(searchTerm);
-//         res.status(200).json({
-//             success: true,
-//             message: `Products fetched Products matching search term '${searchTerm}' fetched successfully!`,
-//             data: result,
-//         });
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             success: false,
-//             message: "Internal Server Error",
-//         });
-//     }
-// };
-
-
 export const ProductsControllers = {
     createProducts,
     getAllProducts,
     getSpecificProduct,
     updateSpecificProduct,
     deleteProduct,
-    // searchProducts,
 }
