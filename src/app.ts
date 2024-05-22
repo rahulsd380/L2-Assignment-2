@@ -1,5 +1,9 @@
 import express, { Request, Response } from 'express';
-const app = express()
+import { ProductsRoutes } from './modules/products/products.route';
+const app = express();
+
+
+app.use('/api/products', ProductsRoutes)
 
 app.get('/', (req : Request, res : Response) => {
   res.send('Hello World!')
