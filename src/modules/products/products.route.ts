@@ -8,6 +8,6 @@ const router = express.Router();
 // Calling the products controller function
 router.post("/", ProductsControllers.createProducts);
 router.get("/", ProductsControllers.getAllMovies);
-router.get("/:productId", ProductsControllers.getSpecificProduct);
+router.get("/:id", ProductsControllers.getSpecificProduct);
 
 export const ProductsRoutes = router;

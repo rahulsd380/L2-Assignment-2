@@ -18,9 +18,9 @@ const getAllProducts = async() => {
 };
 
 // Get specific product by id
-const getSpecificProduct = async (productId: string) => {
+const getSpecificProduct = async (id: string) => {
     // Fetching the product by id from database
-    const result = await Products.findOne({productId});
+    const result = await Products.findById(id);
     return result;
 };
 

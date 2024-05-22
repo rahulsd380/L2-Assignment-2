@@ -42,7 +42,7 @@ const getAllMovies = async(req : Request, res: Response) => {
 // Get all products by id
 const getSpecificProduct = async (req: Request, res: Response) => {
     try {
-        const productId = req.params.productId;
+        const productId = req.params.id;
         // Controller is calling the service function
         const result = await productServices.getSpecificProduct(productId);
         if (!result) {
