@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { orderServices } from "./order.service";
 import { productServices } from "../products/products.service";
+import OrdersZodSchema from "./order.validation";
 
 
 // Create new order
@@ -8,7 +9,9 @@ const createNewOrder = async(req: Request, res:Response) => {
 
     
     const orderData = req.body;
-    const result = await orderServices.createNewOrder(orderData);
+    const zodValidatedData = OrdersZodSchema.parse(orderData);
+    
+    const result = await orderServices.createNewOrder(zodValidatedData);
 
     res.json({
         success: true,
