@@ -39,7 +39,7 @@ const getAllMovies = async(req : Request, res: Response) => {
 }
 
 
-// Get all products by id
+// Get specific products by id
 const getSpecificProduct = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
@@ -63,8 +63,34 @@ const getSpecificProduct = async (req: Request, res: Response) => {
 };
 
 
+// Update specific products by id
+const updateSpecificProduct = async (req: Request, res: Response) => {
+    try {
+        const productId = req.params.id;
+        const updatedData = req.body;
+        // Controller is calling the service function
+        const result = await productServices.updateSpecificProduct(productId, updatedData);
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: "Product not found",
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully!",
+            data: result,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
 export const ProductsControllers = {
     createProducts,
     getAllMovies,
     getSpecificProduct,
+    updateSpecificProduct,
 }

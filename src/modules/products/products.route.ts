@@ -9,5 +9,6 @@ const router = express.Router();
 router.post("/", ProductsControllers.createProducts);
 router.get("/", ProductsControllers.getAllMovies);
 router.get("/:id", ProductsControllers.getSpecificProduct);
+router.put("/:id", ProductsControllers.updateSpecificProduct);
 
 export const ProductsRoutes = router;
