@@ -16,8 +16,21 @@ const getAllOrders = () => {
     return result
 }
 
+
+//Search product
+const searchOrder = async (email: string) => {
+    const regex = new RegExp(email, 'i');
+    const result = await Orders.find({
+        $or: [
+            { email: regex }
+        ]
+    });
+    return result;
+};
+
 export const orderServices = {
     createNewOrder,
-    getAllOrders
+    getAllOrders,
+    searchOrder
 
 }
