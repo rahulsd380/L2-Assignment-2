@@ -19,7 +19,7 @@ const createNewOrder = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(400).json({
       success: false,
-      message: "Something went wrong. Please try again!",
+      message: "Couldn't create product. Please try again!",
     });
   }
 };
@@ -49,7 +49,7 @@ const getAllOrders = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(400).json({
       success: false,
-      message: "Something went wrong. Please try again!",
+      message: "Couldn't fetched data. Please try again!",
     });
   }
 };
